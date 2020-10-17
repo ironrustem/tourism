@@ -1,7 +1,6 @@
 package com.saifullin.servlets;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
@@ -38,7 +37,6 @@ public class RegistrationServlet extends HttpServlet {
             if(name.equals("")) error ="Укажите Имя!";
             if(surname.equals("")) error ="Укажите Фамилию!";
 
-            System.out.println(error);
             httpSession.setAttribute("userError", error);
             resp.sendRedirect("registration.jsp");
         }

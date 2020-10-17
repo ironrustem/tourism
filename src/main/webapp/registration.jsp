@@ -1,11 +1,11 @@
-<%@ page import="java.sql.SQLOutput" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: rustem
   Date: 13.10.2020
   Time: 18:35
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Login Page</title>
@@ -29,27 +29,41 @@
     if (sessionError == null) sessionError = "";
     System.out.println(sessionError);
 %>
-<form action="/registration" method="post">
+<form action="${pageContext.request.contextPath}/registration" method="post">
     Фамилия:
-    <input name="surname" type="text" value= <%=sessionSurname%>>
+    <label>
+        <input name="surname" type="text" value= <%=sessionSurname%>>
+    </label>
     <br>
     Имя:
-    <input name="name" type="text" value= <%=sessionName%>>
+    <label>
+        <input name="name" type="text" value= <%=sessionName%>>
+    </label>
     <br>
     Дата рождения:
-    <input name="birth" type="date" value= <%=sessionBirth%>>
+    <label>
+        <input name="birth" type="date" value= <%=sessionBirth%>>
+    </label>
     <br>
     Ваша почта:
-    <input name="mail" type="email" value= <%=sessionMail%>>
+    <label>
+        <input name="mail" type="email" value= <%=sessionMail%>>
+    </label>
     <br>
     Номер телефона:
-    <input name="numberPhone" type="number" value= <%=sessionPhone%>>
+    <label>
+        <input name="numberPhone" type="number" value= <%=sessionPhone%>>
+    </label>
     <br>
     Логин:
-    <input name="login" type="text" value= <%=sessionLogin%>>
+    <label>
+        <input name="login" type="text" value= <%=sessionLogin%>>
+    </label>
     <br>
     Пароль:
-    <input name="password" type="password">
+    <label>
+        <input name="password" type="password">
+    </label>
     <br>
     <h4><%=sessionError%></h4>
     <input type="submit" value="Log up">
