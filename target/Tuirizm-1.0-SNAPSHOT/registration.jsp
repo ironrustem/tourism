@@ -23,8 +23,6 @@
     if (sessionMail == null) sessionMail = "";
     String sessionPhone = (String) session.getAttribute("userPhone");
     if (sessionPhone == null) sessionPhone = "";
-    String sessionLogin = (String) session.getAttribute("userLogin");
-    if (sessionLogin == null) sessionLogin = "";
     String sessionError = (String) session.getAttribute("userError");
     if (sessionError == null) sessionError = "";
     System.out.println(sessionError);
@@ -53,11 +51,6 @@
     Номер телефона:
     <label>
         <input name="numberPhone" type="number" value= <%=sessionPhone%>>
-    </label>
-    <br>
-    Логин:
-    <label>
-        <input name="login" type="text" value= <%=sessionLogin%>>
     </label>
     <br>
     Пароль:

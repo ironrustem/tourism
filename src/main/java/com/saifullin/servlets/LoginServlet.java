@@ -1,6 +1,9 @@
 package com.saifullin.servlets;
 
 
+import com.saifullin.dao.impl.UserDaoImpl;
+import com.saifullin.models.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -9,11 +12,12 @@ import java.io.IOException;
 @WebServlet(name = "loginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
-    private static final String LOGIN = "ivan";
-    private static final String PASSWORD = "ivan1";
+    private final UserDaoImpl userDao = new UserDaoImpl();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         resp.sendRedirect("login.html");
     }
 
@@ -21,18 +25,25 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        if (login.equals(LOGIN) && password.equals(PASSWORD)) {
-            HttpSession httpSession = req.getSession();
-            httpSession.setAttribute("username", login);
-            httpSession.setMaxInactiveInterval(60 * 60);
 
-            Cookie userCookie = new Cookie("username", login);
-            userCookie.setMaxAge(24 * 60 * 60);
+        User userDB = userDao.get(login);
 
-            resp.addCookie(userCookie);
+        if(userDB != null) {
+            if (login.equals(userDB.geteMail()) && password.equals(userDB.getPassword())) {
+                HttpSession httpSession = req.getSession();
+                httpSession.setAttribute("username", login);
+                httpSession.setMaxInactiveInterval(60 * 60);
 
-        } else {
-            resp.sendRedirect("/login");
+                Cookie userCookie = new Cookie("username", login);
+                userCookie.setMaxAge(24 * 60 * 60);
+
+                resp.addCookie(userCookie);
+
+                resp.sendRedirect("/account");
+
+            } else {
+                resp.sendRedirect("/login");
+            }
         }
 
     }

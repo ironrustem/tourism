@@ -7,10 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ArrivalTableServlet", urlPatterns = "/arrivalTable")
+@WebServlet(name = "ArrivalTableServlet", urlPatterns = "/arrival")
 public class ArrivalTableServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect("arrival.html");
     }
 
     @Override
