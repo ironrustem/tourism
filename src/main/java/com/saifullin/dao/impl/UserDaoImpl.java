@@ -12,30 +12,19 @@ public class UserDaoImpl implements Dao<User> {
 
     private final Connection connection = PostgresConnectionHelper.getConnection();
 
-    @Override
-    public User get(int id) {
+
+    public void delete(String email) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT 1 FROM \"users\" WHERE id = " + id;
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            return new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getString("surname"),
-                    resultSet.getString("eMail"),
-                    resultSet.getString("telephoneNumber"),
-                    resultSet.getString("priority"),
-                    resultSet.getString("password")
-            );
-
+            String sql = "DELETE FROM \"users\" WHERE email = '" + email + "'";
+            statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
-    public User get(String eMail1) {
+
+    public User getByEMail(String eMail1) {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"users\" WHERE eMail ='" + eMail1 + "'";
@@ -52,12 +41,36 @@ public class UserDaoImpl implements Dao<User> {
                         resultSet.getString("password")
                 );
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    @Override
+    public User get(int id) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM \"users\" WHERE id = " + id;
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            if (resultSet.next()) {
+                return new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("surname"),
+                        resultSet.getString("eMail"),
+                        resultSet.getString("telephoneNumber"),
+                        resultSet.getString("priority"),
+                        resultSet.getString("password")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     @Override
     public List<User> getAll() {
@@ -79,7 +92,6 @@ public class UserDaoImpl implements Dao<User> {
                 );
                 users.add(user);
             }
-
             return users;
         } catch (SQLException e) {
             e.printStackTrace();

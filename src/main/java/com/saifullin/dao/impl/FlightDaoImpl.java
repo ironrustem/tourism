@@ -18,21 +18,24 @@ public class FlightDaoImpl implements Dao<Flight> {
     public Flight get(int id) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT 1 FROM \"flight\" WHERE id = " + id;
+            String sql = "SELECT * FROM \"flight\" WHERE id = '" + id + "'";
             Dao<Plane> daoPlane = new PlaneDaoImpl();
             Dao<City> daoCity = new CityDaoImpl();
 
             ResultSet resultSet = statement.executeQuery(sql);
-            return new Flight(
-                    resultSet.getInt("id"),
-                    new Date(resultSet.getString("date1")),
-                    new Date(resultSet.getString("date2")),
-                    daoPlane.get(resultSet.getInt("id_plane")),
-                    daoCity.get(resultSet.getInt("id_city")),
-                    resultSet.getString("terminal"),
-                    resultSet.getString("type"),
-                    resultSet.getString("status")
-            );
+
+            if (resultSet.next()) {
+                return new Flight(
+                        resultSet.getInt("id"),
+                        new Date(resultSet.getString("date1")),
+                        new Date(resultSet.getString("date2")),
+                        daoPlane.get(resultSet.getInt("id_plane")),
+                        daoCity.get(resultSet.getInt("id_city")),
+                        resultSet.getString("terminal"),
+                        resultSet.getString("type"),
+                        resultSet.getString("status")
+                );
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,7 +76,7 @@ public class FlightDaoImpl implements Dao<Flight> {
 
     @Override
     public void save(Flight flight) {
-        String sql = "INSERT INTO \"flight\" (date1, date2, id_plane, id_city, terminal, type, status) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO \"flight\" (date1, date2, id_plane, id_city, terminal, status, type) VALUES (?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, flight.getDate1().toString());

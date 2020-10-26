@@ -17,13 +17,16 @@ public class CityDaoImpl implements Dao<City> {
     public City get(int id) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT 1 FROM \"city\" WHERE id = " + id;
+            String sql = "SELECT * FROM \"city\" WHERE id =" + id;
             ResultSet resultSet = statement.executeQuery(sql);
-            return new City(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getString("country")
-            );
+
+            if (resultSet.next()) {
+                return new City(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("country")
+                );
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -34,7 +37,7 @@ public class CityDaoImpl implements Dao<City> {
     public City getByName(String name) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT 1 FROM \"city\" WHERE name = " + name;
+            String sql = "SELECT * FROM \"city\" WHERE name = '" + name +"'";
             ResultSet resultSet = statement.executeQuery(sql);
             return new City(
                     resultSet.getInt("id"),

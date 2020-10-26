@@ -53,7 +53,7 @@ public class RegistrationServlet extends HttpServlet {
 
             User user = new User(name, surname, mail, numberPhone, "user", password);
             dao.save(user);
-            resp.sendRedirect("login.html");
+            req.getRequestDispatcher("login.ftl").forward(req,resp);
         }
 
 

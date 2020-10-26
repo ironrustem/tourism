@@ -5,6 +5,7 @@ com/saifullin/dao/impl/RoomDaoImpl.class
 com/saifullin/dao/impl/MessageDaoImpl.class
 com/saifullin/dao/impl/PlaneDaoImpl.class
 com/saifullin/models/PriorityFly.class
+com/saifullin/filters/LoginFilter.class
 com/saifullin/servlets/LoginServlet.class
 com/saifullin/models/Date.class
 com/saifullin/dao/impl/UserDaoImpl.class
@@ -23,7 +24,6 @@ com/saifullin/models/User.class
 com/saifullin/models/OrderHotel.class
 com/saifullin/models/ServicesOrder.class
 com/saifullin/servlets/HotelServlet.class
-com/saifullin/handlers/AccountHandler.class
 com/saifullin/servlets/RegistrationServlet.class
 com/saifullin/dao/impl/CityDaoImpl.class
 com/saifullin/dao/impl/FlyDaoImpl.class

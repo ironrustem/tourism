@@ -1,4 +1,5 @@
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/models/User.java
+/Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/filters/LoginFilter.java
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/dao/impl/OrderHotelDaoImpl.java
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/servlets/MainServlet.java
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/dao/impl/FlightDaoImpl.java
@@ -19,7 +20,6 @@
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/dao/impl/PlaneDaoImpl.java
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/dao/impl/MessageDaoImpl.java
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/dao/impl/DateHotelDaoImpl.java
-/Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/handlers/AccountHandler.java
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/servlets/ArrivalTableServlet.java
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/servlets/LoginServlet.java
 /Users/rustem/ITIS/inf/2020/tourism/src/main/java/com/saifullin/dao/impl/ServiceDaoImpl.java

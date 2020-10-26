@@ -17,13 +17,15 @@ public class PriorityFlyDaoImpl implements Dao<PriorityFly> {
     public PriorityFly get(int id) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT 1 FROM \"priorityFly\" WHERE id = " + id;
+            String sql = "SELECT * FROM \"priorityfly\" WHERE id = " + id;
             ResultSet resultSet = statement.executeQuery(sql);
-            return new PriorityFly(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getInt("timePriority")
-            );
+            if (resultSet.next()) {
+                return new PriorityFly(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("timePriority")
+                );
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,7 +37,7 @@ public class PriorityFlyDaoImpl implements Dao<PriorityFly> {
     public List<PriorityFly> getAll() {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM \"priorityFly\"";
+            String sql = "SELECT * FROM \"priorityfly\"";
             ResultSet resultSet = statement.executeQuery(sql);
 
             List<PriorityFly> priorityFlies = new ArrayList<>();
@@ -57,7 +59,7 @@ public class PriorityFlyDaoImpl implements Dao<PriorityFly> {
 
     @Override
     public void save(PriorityFly priorityFly) {
-        String sql = "INSERT INTO \"priorityFly\" (name, timePriority) VALUES (?, ?);";
+        String sql = "INSERT INTO \"priorityfly\" (name, timePriority) VALUES (?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, priorityFly.getName());

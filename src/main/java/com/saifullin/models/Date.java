@@ -10,16 +10,20 @@ public class Date {
     private int minute;
 
     public Date(String date){
-        this.year = Integer.parseInt(date.substring(5,8));
-        this.month = Integer.parseInt(date.substring(2,3));
-        this.day = Integer.parseInt(date.substring(0,1));
-        this.hour = Integer.parseInt(date.substring(10,11));
-        this.minute = Integer.parseInt(date.substring(13,14));
+        this.year = Integer.parseInt(date.substring(6,10));
+        this.month = Integer.parseInt(date.substring(3,5));
+        this.day = Integer.parseInt(date.substring(0,2));
+        this.hour = Integer.parseInt(date.substring(10,12));
+        this.minute = Integer.parseInt(date.substring(13,15));
     }
+
+//    public Date dateCorrect(int minutes, Date date){
+//        date.hour
+//    }
 
     @Override
     public String toString() {
-        return day + "," + month + "," + year + " " + hour + ":" + minute;
+        return day + "." + month + "." + year + " " + hour + ":" + minute;
     }
 
     public int getYear() {

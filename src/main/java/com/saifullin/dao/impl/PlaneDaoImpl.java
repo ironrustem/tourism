@@ -16,14 +16,16 @@ public class PlaneDaoImpl implements Dao<Plane> {
     public Plane get(int id) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT 1 FROM \"plane\" WHERE id = " + id;
+            String sql = "SELECT * FROM \"plane\" WHERE id = " + id + "";
             ResultSet resultSet = statement.executeQuery(sql);
-            return new Plane(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getInt("places")
+            if (resultSet.next()) {
+                return new Plane(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getInt("places")
 
-            );
+                );
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();

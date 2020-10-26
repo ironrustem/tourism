@@ -9,4 +9,5 @@ public interface Dao<T> {
     List<T> getAll();
 
     void save(T t);
+
 }
