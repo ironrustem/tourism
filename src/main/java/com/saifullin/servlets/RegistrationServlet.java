@@ -2,6 +2,7 @@ package com.saifullin.servlets;
 
 import com.saifullin.dao.Dao;
 import com.saifullin.dao.impl.UserDaoImpl;
+import com.saifullin.helpers.PasswordHelper;
 import com.saifullin.models.User;
 
 import javax.servlet.ServletException;
@@ -11,14 +12,21 @@ import java.io.*;
 
 @WebServlet(name = "registrationServlet", urlPatterns = "/registration")
 public class RegistrationServlet extends HttpServlet {
+
+    private String surname = "";
+    private String name = "";
+    private String mail = "";
+    private String numberPhone = "";
+    private String password = "";
+    private String error = "";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession httpSession = req.getSession();
-        httpSession.setAttribute("userSurname", "");
-        httpSession.setAttribute("userName", "");
-        httpSession.setAttribute("userMail","");
-        httpSession.setAttribute("userPhone", "");
-        httpSession.setAttribute("sessionError", "");
+        req.setAttribute("surname", surname);
+        req.setAttribute("name", name);
+        req.setAttribute("mail",mail);
+        req.setAttribute("numberPhone", numberPhone);
+        req.setAttribute("sessionError",  error);
         req.getRequestDispatcher("registration.ftl").forward(req,resp);
     }
 
@@ -26,36 +34,36 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        String surname = req.getParameter("surname");
-        String name = req.getParameter("name");
-        String mail = req.getParameter("mail");
-        String numberPhone = req.getParameter("numberPhone");
-        String password = req.getParameter("password");
-        HttpSession httpSession = req.getSession();
+        
+        surname = req.getParameter("surname");
+        name = req.getParameter("name");
+        mail = req.getParameter("mail");
+        numberPhone = req.getParameter("numberPhone");
+        password = req.getParameter("password");
+
+        System.out.println(surname);
+        System.out.println(name);
+        System.out.println(mail);
+        System.out.println(numberPhone);
+        System.out.println(password);
 
         if ((password.equals("")) || (name.equals("")) || (surname.equals(""))) {
-
-            httpSession.setAttribute("userSurname", surname);
-            httpSession.setAttribute("userName", name);
-            httpSession.setAttribute("userMail", mail);
-            httpSession.setAttribute("userPhone", numberPhone);
-
-            String error = "";
             if (password.equals("")) error = "Укажите Пароль!";
             if (name.equals("")) error = "Укажите Имя!";
             if (surname.equals("")) error = "Укажите Фамилию!";
-
-            httpSession.setAttribute("sessionError", error);
-
-            req.getRequestDispatcher("/registration.ftl").forward(req,resp);
+            resp.sendRedirect("registration");
         } else {
-            Dao<User> dao = new UserDaoImpl();
 
-            User user = new User(name, surname, mail, numberPhone, "user", password);
-            dao.save(user);
-            req.getRequestDispatcher("login.ftl").forward(req,resp);
+            UserDaoImpl dao = new UserDaoImpl();
+            if(!dao.check(mail)) {
+                User user = new User(name, surname, mail, numberPhone, "user", PasswordHelper.encrypt(password));
+                dao.save(user);
+                resp.sendRedirect("/login");
+            } else {
+                error = "Пользователь с такой почтой уже зарегестрирован";
+                resp.sendRedirect("registration");
+            }
         }
-
 
     }
 

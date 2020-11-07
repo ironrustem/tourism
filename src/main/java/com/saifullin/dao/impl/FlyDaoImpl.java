@@ -18,39 +18,39 @@ public class FlyDaoImpl implements Dao<Fly> {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"fly\" WHERE id_user = " + id;
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            List<Fly> flies = new ArrayList<>();
-
-            Dao<User> daoUser = new UserDaoImpl();
-            Dao<Flight> daoFlight = new FlightDaoImpl();
-            Dao<PriorityFly> daoPriorityFly = new PriorityFlyDaoImpl();
-            while (resultSet.next()) {
-                Fly fly = new Fly(
-                        daoUser.get(resultSet.getInt("id_user")),
-                        daoFlight.get(resultSet.getInt("id_flight")),
-                        daoPriorityFly.get(resultSet.getInt("id_priorityFly"))
-                );
-                flies.add(fly);
-            }
-
-            return flies;
+            return getFlies(statement, sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public boolean check(int user, int flight, int priorityFly) {
+    private List<Fly> getFlies(Statement statement, String sql) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        List<Fly> flies = new ArrayList<>();
+
+        Dao<User> daoUser = new UserDaoImpl();
+        Dao<Flight> daoFlight = new FlightDaoImpl();
+        while (resultSet.next()) {
+            Fly fly = new Fly(
+                    daoUser.get(resultSet.getInt("id_user")),
+                    daoFlight.get(resultSet.getInt("id_flight"))
+            );
+            flies.add(fly);
+        }
+
+        return flies;
+    }
+
+    public boolean check(int user, int flight) {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"fly\" WHERE id_user = " + user
-                    + " AND id_flight = " + flight
-                    + " AND id_priorityfly = " + priorityFly;
+                    + " AND id_flight = " + flight;
             ResultSet resultSet = statement.executeQuery(sql);
             boolean check = false;
             if (resultSet.next()) check = true;
-            System.out.println(resultSet.next());
             return check;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,12 +67,13 @@ public class FlyDaoImpl implements Dao<Fly> {
     }
 
 
-    public void delete(int user, int flight, int priorityFly) {
+    public void delete(int user, int flight) {
+        System.out.println("ddddd");
         try {
             Statement statement = connection.createStatement();
             String sql = "DELETE FROM \"fly\" WHERE id_user = " + user
-                    + " AND id_flight = " + flight
-                    + " AND id_priorityfly = " + priorityFly;
+                    + " AND id_flight = " + flight;
+            System.out.println(sql);
             statement.execute(sql);
 
         } catch (SQLException e) {
@@ -86,23 +87,7 @@ public class FlyDaoImpl implements Dao<Fly> {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"fly\"";
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            List<Fly> flies = new ArrayList<>();
-
-            Dao<User> daoUser = new UserDaoImpl();
-            Dao<Flight> daoFlight = new FlightDaoImpl();
-            Dao<PriorityFly> daoPriorityFly = new PriorityFlyDaoImpl();
-            while (resultSet.next()) {
-                Fly fly = new Fly(
-                        daoUser.get(resultSet.getInt("id_user")),
-                        daoFlight.get(resultSet.getInt("id_flight")),
-                        daoPriorityFly.get(resultSet.getInt("id_priorityFly"))
-                );
-                flies.add(fly);
-            }
-
-            return flies;
+            return getFlies(statement, sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -111,26 +96,26 @@ public class FlyDaoImpl implements Dao<Fly> {
 
     @Override
     public void save(Fly fly) {
-        String sql = "INSERT INTO \"fly\" (id_user, id_flight, id_priorityFly) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO \"fly\" (id_user, id_flight) VALUES (?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, fly.getUser().getId());
             preparedStatement.setInt(2, fly.getFlight().getId());
-            preparedStatement.setInt(3, fly.getPriorityFly().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void save(int id_user, int id_flight, int id_priorityFly) {
-        String sql = "INSERT INTO \"fly\" (id_user, id_flight, id_priorityFly) VALUES (?, ?, ?);";
+    public void save(int id_user, int id_flight) {
+        String sql = "INSERT INTO \"fly\" (id_user, id_flight) VALUES (?, ?);";
+        System.out.println("addFly");
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id_user);
             preparedStatement.setInt(2, id_flight);
-            preparedStatement.setInt(3, id_priorityFly);
             preparedStatement.executeUpdate();
+            System.out.println("go");
         } catch (SQLException e) {
             e.printStackTrace();
         }

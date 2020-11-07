@@ -2,6 +2,7 @@ package com.saifullin.servlets;
 
 
 import com.saifullin.dao.impl.UserDaoImpl;
+import com.saifullin.helpers.PasswordHelper;
 import com.saifullin.models.User;
 
 import javax.servlet.ServletException;
@@ -24,6 +25,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         String sessionUser = (String) req.getSession().getAttribute("username");
+        System.out.println(sessionUser);
         if ((sessionUser == null)&&(!check)) {
             req.getRequestDispatcher("/login.ftl").forward(req,resp);
         } else {
@@ -36,6 +38,9 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
+        System.out.println(login);
+        System.out.println(password);
+
         int i = 0;
         if (req.getParameter("remember") != null) {
             i = Integer.parseInt(req.getParameter("remember"));
@@ -43,11 +48,13 @@ public class LoginServlet extends HttpServlet {
 
         User userDB = userDao.getByEMail(login);
 
-        boolean logined = false;
+        boolean isLogin = false;
+
+        String now = PasswordHelper.encrypt(password);
 
         if(userDB != null) {
-            if (login.equals(userDB.geteMail()) && password.equals(userDB.getPassword())) {
-                logined = true;
+            if (login.equals(userDB.getMail()) && now.equals(userDB.getPassword())) {
+                isLogin = true;
                 HttpSession httpSession = req.getSession();
                 httpSession.setAttribute("username", login);
                 httpSession.setMaxInactiveInterval(60 * 60);
@@ -55,12 +62,13 @@ public class LoginServlet extends HttpServlet {
                     Cookie userCookie = new Cookie("username", login);
                     userCookie.setMaxAge(24 * 60 * 60);
                     resp.addCookie(userCookie);
+                    System.out.println("cookie");
                 }
                 System.out.println("account2");
                 resp.sendRedirect("/account");
             }
         }
-        if(!logined)
+        if(!isLogin)
         req.getRequestDispatcher("/login.ftl").forward(req,resp);
     }
 

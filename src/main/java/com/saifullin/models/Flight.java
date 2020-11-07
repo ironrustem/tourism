@@ -1,14 +1,43 @@
 package com.saifullin.models;
 
+import java.sql.Timestamp;
+
 public class Flight {
     private int id;
-    private Date date1;
-    private Date date2;
+    private Timestamp date1;
+    private Timestamp date2;
     private Plane plane;
     private City city;
     private String terminal;
     private String type;
     private String status;
+    private String number;
+    private String company;
+
+    public Flight(Timestamp date1, Timestamp date2, Plane plane, City city, String terminal, String type, String status, String number, String company) {
+        this.date1 = date1;
+        this.date2 = date2;
+        this.plane = plane;
+        this.city = city;
+        this.terminal = terminal;
+        this.type = type;
+        this.status = status;
+        this.number = number;
+        this.company = company;
+    }
+
+    public Flight(int id, Timestamp date1, Timestamp date2, Plane plane, City city, String terminal, String type, String status, String number, String company) {
+        this.id = id;
+        this.date1 = date1;
+        this.date2 = date2;
+        this.plane = plane;
+        this.city = city;
+        this.terminal = terminal;
+        this.type = type;
+        this.status = status;
+        this.number = number;
+        this.company = company;
+    }
 
     public int getId() {
         return id;
@@ -18,19 +47,19 @@ public class Flight {
         this.id = id;
     }
 
-    public Date getDate1() {
+    public Timestamp getDate1() {
         return date1;
     }
 
-    public void setDate1(Date date1) {
+    public void setDate1(Timestamp date1) {
         this.date1 = date1;
     }
 
-    public Date getDate2() {
+    public Timestamp getDate2() {
         return date2;
     }
 
-    public void setDate2(Date date2) {
+    public void setDate2(Timestamp date2) {
         this.date2 = date2;
     }
 
@@ -74,24 +103,19 @@ public class Flight {
         this.status = status;
     }
 
-    public Flight(Date date1, Date date2, Plane plane, City city, String terminal, String type, String status) {
-        this.date1 = date1;
-        this.date2 = date2;
-        this.plane = plane;
-        this.city = city;
-        this.terminal = terminal;
-        this.type = type;
-        this.status = status;
+    public String getNumber() {
+        return number;
     }
 
-    public Flight(int id, Date date1, Date date2, Plane plane, City city, String terminal, String type, String status) {
-        this.id = id;
-        this.date1 = date1;
-        this.date2 = date2;
-        this.plane = plane;
-        this.city = city;
-        this.terminal = terminal;
-        this.type = type;
-        this.status = status;
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

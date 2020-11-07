@@ -3,7 +3,6 @@ package com.saifullin.dao.impl;
 import com.saifullin.dao.Dao;
 import com.saifullin.helpers.PostgresConnectionHelper;
 import com.saifullin.models.*;
-import com.saifullin.models.Date;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,26 +18,33 @@ public class DateHotelDaoImpl implements Dao<DateHotel> {
         return null;
     }
 
-    public DateHotel get(String date) {
+    public List<DateHotel> get(String date) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT 1 FROM \"dateHotel\" WHERE date = " + date;
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            Dao<Room> dao = new RoomDaoImpl();
-
-            return new DateHotel(
-                    resultSet.getInt("id"),
-                    new Date(resultSet.getString("date1")),
-                    dao.get(resultSet.getInt("id_room")),
-                    resultSet.getInt("allNumberRoom"),
-                    resultSet.getInt("freeNumberRoom")
-            );
+            String sql = "SELECT * FROM \"datehotel\" WHERE date1 = '" + date + "' AND freenumberroom > 0";
+            return getDateHotels(statement, sql);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private List<DateHotel> getDateHotels(Statement statement, String sql) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        Dao<Room> dao = new RoomDaoImpl();
+
+        List<DateHotel> dateHotels = new ArrayList<>();
+        while (resultSet.next()) {
+            DateHotel dateHotel = new DateHotel(
+                    resultSet.getDate("date1"),
+                    dao.get(resultSet.getInt("id_room")),
+                    resultSet.getInt("freenumberroom")
+            );
+            dateHotels.add(dateHotel);
+        }
+        return dateHotels;
     }
 
 
@@ -46,39 +52,24 @@ public class DateHotelDaoImpl implements Dao<DateHotel> {
     public List<DateHotel> getAll() {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM \"dateHotel\"";
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            Dao<Room> dao = new RoomDaoImpl();
-
-            List<DateHotel> dateHotels = new ArrayList<>();
-            while (resultSet.next()) {
-                DateHotel dateHotel = new DateHotel(
-                        resultSet.getInt("id"),
-                        new Date(resultSet.getString("date1")),
-                        dao.get(resultSet.getInt("id_room")),
-                        resultSet.getInt("allNumberRoom"),
-                        resultSet.getInt("freeNumberRoom")
-                );
-                dateHotels.add(dateHotel);
-            }
-
-            return dateHotels;
+            String sql = "SELECT * FROM \"datehotel\"";
+            return getDateHotels(statement, sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+
+
     @Override
     public void save(DateHotel dateHotel) {
-        String sql = "INSERT INTO \"dateHotel\" (date1, id_room, allNumberRoom, freeNumberRoom) VALUES (?, ?, ?, ?);";
+        String sql = "INSERT INTO \"datehotel\" (date1, id_room, freenumberroom) VALUES (?, ?, ?, ?);";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, dateHotel.getDate().toString());
+            preparedStatement.setDate(1, dateHotel.getDate());
             preparedStatement.setInt(2, dateHotel.getRoom().getId());
-            preparedStatement.setInt(3, dateHotel.getAllNumberRoom());
-            preparedStatement.setInt(4, dateHotel.getFreeNumberRoom());
+            preparedStatement.setInt(3, dateHotel.getFreeNumberRoom());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

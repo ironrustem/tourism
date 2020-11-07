@@ -16,16 +16,21 @@ public class RoomDaoImpl implements Dao<Room> {
     public Room get(int id) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT 1 FROM \"room\" WHERE id = " + id;
+            String sql = "SELECT * FROM \"room\" WHERE id = " + id;
             ResultSet resultSet = statement.executeQuery(sql);
-            return new Room(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getInt("price"),
-                    resultSet.getInt("quantity"),
-                    resultSet.getInt("persons"),
-                    resultSet.getString("roomConvenience")
-            );
+
+            if (resultSet.next()) {
+                return new Room(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("about"),
+                        resultSet.getString("image"),
+                        resultSet.getInt("price"),
+                        resultSet.getInt("quantity"),
+                        resultSet.getInt("persons"),
+                        resultSet.getString("convenience")
+                );
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,10 +50,12 @@ public class RoomDaoImpl implements Dao<Room> {
                 Room room = new Room(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
+                        resultSet.getString("about"),
+                        resultSet.getString("image"),
                         resultSet.getInt("price"),
                         resultSet.getInt("quantity"),
                         resultSet.getInt("persons"),
-                        resultSet.getString("roomConvenience")
+                        resultSet.getString("convenience")
                 );
                 rooms.add(room);
             }
@@ -62,17 +69,6 @@ public class RoomDaoImpl implements Dao<Room> {
 
     @Override
     public void save(Room room) {
-        String sql = "INSERT INTO \"user\" (name, price, quantity, persons, roomConvenience) VALUES (?, ?, ?, ?, ?);";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, room.getName());
-            preparedStatement.setInt(2, room.getPrice());
-            preparedStatement.setInt(3, room.getQuantity());
-            preparedStatement.setInt(4, room.getPersons());
-            preparedStatement.setString(5, room.getConvenience());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 }

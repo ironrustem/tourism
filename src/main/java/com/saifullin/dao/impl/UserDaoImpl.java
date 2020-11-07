@@ -47,6 +47,20 @@ public class UserDaoImpl implements Dao<User> {
         return null;
     }
 
+    public boolean check(String eMail) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM \"users\" WHERE eMail ='" + eMail + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            boolean check = false;
+            if (resultSet.next()) check = true;
+            return check;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public User get(int id) {
         try {
@@ -106,7 +120,7 @@ public class UserDaoImpl implements Dao<User> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
-            preparedStatement.setString(3, user.geteMail());
+            preparedStatement.setString(3, user.getMail());
             preparedStatement.setString(4, user.getTelephoneNumber());
             preparedStatement.setString(5, user.getPriority());
             preparedStatement.setString(6, user.getPassword());

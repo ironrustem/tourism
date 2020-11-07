@@ -8,7 +8,11 @@ import java.io.*;
 @WebServlet(name = "logoutServlet", urlPatterns = "/logout")
 public class  LogoutServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        logout(req, resp);
+    }
+
+    private void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -22,25 +26,12 @@ public class  LogoutServlet extends HttpServlet {
             httpSession.invalidate();
         }
 
-        resp.sendRedirect("main.html");
+        req.getRequestDispatcher("/main").forward(req,resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie[] cookies = req.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                cookie.setMaxAge(0);
-                resp.addCookie(cookie);
-            }
-        }
-
-        HttpSession httpSession = req.getSession(false);
-        if (httpSession != null) {
-            httpSession.invalidate();
-        }
-
-        resp.sendRedirect("main.html");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        logout(req, resp);
     }
 
     @Override

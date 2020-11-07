@@ -1,19 +1,12 @@
 package com.saifullin.models;
 
+import java.sql.Date;
+
 public class DateHotel {
-    private int id;
     private Date date;
     private Room room;
-    private int allNumberRoom;
     private int freeNumberRoom;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Date getDate() {
         return date;
@@ -31,14 +24,6 @@ public class DateHotel {
         this.room = room;
     }
 
-    public int getAllNumberRoom() {
-        return allNumberRoom;
-    }
-
-    public void setAllNumberRoom(int allNumberRoom) {
-        this.allNumberRoom = allNumberRoom;
-    }
-
     public int getFreeNumberRoom() {
         return freeNumberRoom;
     }
@@ -47,18 +32,10 @@ public class DateHotel {
         this.freeNumberRoom = freeNumberRoom;
     }
 
-    public DateHotel(Date date, Room room, int allNumberRoom, int freeNumberRoom) {
+    public DateHotel(Date date, Room room, int freeNumberRoom) {
         this.date = date;
         this.room = room;
-        this.allNumberRoom = allNumberRoom;
         this.freeNumberRoom = freeNumberRoom;
     }
 
-    public DateHotel(int id, Date date, Room room, int allNumberRoom, int freeNumberRoom) {
-        this.id = id;
-        this.date = date;
-        this.room = room;
-        this.allNumberRoom = allNumberRoom;
-        this.freeNumberRoom = freeNumberRoom;
-    }
 }

@@ -1,6 +1,8 @@
 package com.saifullin.models;
 
 import java.io.File;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Message {
 
@@ -8,11 +10,11 @@ public class Message {
     private int id_user;
     private String text;
     private String file;
-    private Date date;
+    private Timestamp date;
     private String type;
     private String status;
 
-    public Message(int id_user, String text, String file, Date date, String type, String status) {
+    public Message(int id_user, String text, String file, Timestamp date, String type, String status) {
         this.id_user = id_user;
         this.text = text;
         this.file = file;
@@ -21,7 +23,7 @@ public class Message {
         this.status = status;
     }
 
-    public Message(int id, int id_user, String text, String file, Date date, String type, String status) {
+    public Message(int id, int id_user, String text, String file, Timestamp date, String type, String status) {
         this.id = id;
         this.id_user = id_user;
         this.text = text;
@@ -63,11 +65,11 @@ public class Message {
         this.file = file;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

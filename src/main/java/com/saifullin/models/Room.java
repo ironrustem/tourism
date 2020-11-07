@@ -3,22 +3,28 @@ package com.saifullin.models;
 public class Room {
     private int id;
     private String name;
+    private String about;
+    private String image;
     private int price;
     private int quantity;
     private int persons;
     private String convenience;
 
-    public Room(String name, int price, int quantity, int persons, String convenience) {
+    public Room(String name, String about, String image, int price, int quantity, int persons, String convenience) {
         this.name = name;
+        this.about = about;
+        this.image = image;
         this.price = price;
         this.quantity = quantity;
         this.persons = persons;
         this.convenience = convenience;
     }
 
-    public Room(int id, String name, int price, int quantity, int persons, String convenience) {
+    public Room(int id, String name, String about, String image, int price, int quantity, int persons, String convenience) {
         this.id = id;
         this.name = name;
+        this.about = about;
+        this.image = image;
         this.price = price;
         this.quantity = quantity;
         this.persons = persons;
@@ -39,6 +45,22 @@ public class Room {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getPrice() {
