@@ -29,7 +29,7 @@ function changeSearch() {
             },
             success: function (responseJson) {
                 $.each(responseJson, function (index, flights) {
-                    load_data(flights.id, flights.date1, flights.date2, flights.city.name, flights.terminal, flights.status, flights.number, flights.company);
+                    load_data(flights.id, flights.date1, flights.date2, flights.city.name, flights.terminal, flights.status, flights.number, flights.company, flights.city.country);
                 });
             }
         });
@@ -39,18 +39,17 @@ function changeSearch() {
 }
 
 
-function load_data(p_0, p_1, p_2, p_3, p_4, p_5, p_6, p_7) {
-    $('.table').find('.t_res').insertAdjacentHTML('beforeend',`
+function load_data(p_0, p_1, p_2, p_3, p_4, p_5, p_6, p_7, p_8) {
+    $('.table').find('.t_res').append(`
     <tr>
       <td>${p_6}</td>
       <td>${p_1}</td>
       <td>${p_2}</td>
       <td><div class="poster">
-        <p>{p_3}</p>
+        <p>${p_3}</p>
         <div class="descr">
-        <p>Страна: Россия</p>
-        </div>
-        </div></td>
+        <p>Страна: ${p_8}</p>
+        </div></div></td>
       <td>${p_7}</td>
       <td>${p_4}</td>
       <td>${p_5}</td>
@@ -77,7 +76,7 @@ function threeDay(n) {
             },
             success: function (responseJson) {
                 $.each(responseJson, function (index, flights) {
-                    load_data(flights.id, flights.date1, flights.date2, flights.city.name, flights.terminal, flights.status, flights.number, flights.company);
+                    load_data(flights.id, flights.date1, flights.date2, flights.city.name, flights.terminal, flights.status, flights.number, flights.company, flights.city.country);
                 });
             }
         });
@@ -98,7 +97,7 @@ function hourTag(n) {
         },
         success: function (responseJson) {
             $.each(responseJson, function (index, flights) {
-                load_data(flights.id, flights.date1, flights.date2, flights.city.name, flights.terminal, flights.status, flights.number, flights.company);
+                load_data(flights.id, flights.date1, flights.date2, flights.city.name, flights.terminal, flights.status, flights.number, flights.company, flights.city.country);
             });
         }
     });

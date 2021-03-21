@@ -1,11 +1,9 @@
 com/saifullin/dao/impl/ServiceDaoImpl.class
 com/saifullin/servlets/RoomServlet.class
-com/saifullin/models/RoomImage.class
 com/saifullin/models/DateHotel.class
 com/saifullin/servlets/AccountServlet.class
 com/saifullin/dao/impl/RoomDaoImpl.class
 com/saifullin/servlets/ChatServlet.class
-com/saifullin/dao/impl/RoomImageDaoImpl.class
 com/saifullin/dao/impl/MessageDaoImpl.class
 com/saifullin/dao/impl/PlaneDaoImpl.class
 com/saifullin/models/PriorityFly.class
@@ -15,15 +13,16 @@ com/saifullin/dao/impl/UserDaoImpl.class
 com/saifullin/dao/impl/FlightDaoImpl.class
 com/saifullin/servlets/MainServlet.class
 com/saifullin/servlets/DepartureTableServlet.class
-com/saifullin/helpers/PasswordEncrypt.class
 com/saifullin/dao/impl/OrderHotelDaoImpl.class
 com/saifullin/models/City.class
 com/saifullin/models/Message.class
 com/saifullin/servlets/LogoutServlet.class
+com/saifullin/helpers/ImagesHelper.class
 com/saifullin/models/User.class
 com/saifullin/models/OrderHotel.class
 com/saifullin/models/ServicesOrder.class
 com/saifullin/servlets/HotelServlet.class
+com/saifullin/helpers/PasswordHelper.class
 com/saifullin/servlets/RegistrationServlet.class
 com/saifullin/dao/impl/CityDaoImpl.class
 com/saifullin/servlets/BookingHotel.class
@@ -40,3 +39,4 @@ com/saifullin/dao/impl/ServiceOrderDaoImpl.class
 com/saifullin/models/Flight.class
 com/saifullin/dao/impl/DateHotelDaoImpl.class
 com/saifullin/dto/FlightDto.class
+com/saifullin/models/ServiceOne.class

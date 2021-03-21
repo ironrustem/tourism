@@ -15,19 +15,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ImagesHelper {
-    String UPLOAD_LOCATION = "/t";
+    String UPLOAD_LOCATION = System.getProperty("user.home") + "/Develop/Java/Servlet/FoodProjectStorage/";
 
-    public void saveImagesFrom(List<Part> fileParts, int postId) throws IOException {
+    public void saveImagesFrom(List<Part> fileParts, int id) throws IOException {
         for (Part filePart : fileParts) {
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             InputStream fileContent = filePart.getInputStream();
 
             try {
-                File uploads = new File(UPLOAD_LOCATION + postId);
+                File uploads = new File(UPLOAD_LOCATION + id);
 
                 if (!uploads.exists()) {
                     //noinspection ResultOfMethodCallIgnored
-                    uploads.mkdir();
+                    uploads.mkdirs();
                     // If you require it to make the entire directory path including parents,
                     // use directory.mkdirs(); here instead.
                 }

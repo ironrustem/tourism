@@ -18,7 +18,6 @@ public class OrderHotelDaoImpl implements Dao<OrderHotel> {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"orderhotel\" WHERE id = " + id;
-            System.out.println(sql);
             ResultSet resultSet = statement.executeQuery(sql);
             Dao<Room> dao = new RoomDaoImpl();
 
@@ -43,7 +42,6 @@ public class OrderHotelDaoImpl implements Dao<OrderHotel> {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"orderhotel\" WHERE id = " + id;
-            System.out.println(sql);
             ResultSet resultSet = statement.executeQuery(sql);
             Dao<Room> dao = new RoomDaoImpl();
 
@@ -72,7 +70,6 @@ public class OrderHotelDaoImpl implements Dao<OrderHotel> {
                     id_room + " AND date1 = '" + date2 + "' AND date2 =  '" + date1 + "'";
 
             ResultSet resultSet = statement.executeQuery(sql);
-            Dao<Room> dao = new RoomDaoImpl();
             boolean check = false;
             if (resultSet.next()) check = true;
             return check;
@@ -99,10 +96,8 @@ public class OrderHotelDaoImpl implements Dao<OrderHotel> {
         try {
             Statement statement = connection.createStatement();
             String sql = "UPDATE \"orderhotel\" SET price = " + price + " WHERE id = " + id;
-            System.out.println(sql);
 
             statement.execute(sql);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -158,7 +153,6 @@ public class OrderHotelDaoImpl implements Dao<OrderHotel> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, orderHotel.getPrice());
             preparedStatement.setInt(2, orderHotel.getRoom().getId());
-            System.out.println("room" + orderHotel.getRoom().getId());
             preparedStatement.setInt(3, orderHotel.getId_user());
             preparedStatement.setDate(4, orderHotel.getDate());
             preparedStatement.setDate(5, orderHotel.getDate1());

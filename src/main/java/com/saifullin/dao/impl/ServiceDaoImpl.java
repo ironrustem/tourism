@@ -41,7 +41,6 @@ public class ServiceDaoImpl implements Dao<Service> {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"service\"";
             ResultSet resultSet = statement.executeQuery(sql);
-            System.out.println(sql);
 
             List<Service> services = new ArrayList<>();
             while (resultSet.next()) {

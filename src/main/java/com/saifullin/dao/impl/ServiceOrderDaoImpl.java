@@ -54,8 +54,6 @@ public class ServiceOrderDaoImpl implements Dao<ServicesOrder> {
             String sql = "DELETE FROM \"serviceorder\" WHERE id_order = " + id_orderHotel + " AND id_service = " + id ;
             System.out.println(sql);
             statement.execute(sql);
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         } }

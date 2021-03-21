@@ -42,9 +42,8 @@
                     <div class="message_write">
                         <textarea id = "textera" class="form-control" placeholder="type a message"></textarea>
                         <div class="clearfix"></div>
-                        <div class="chat_bottom"><a href="#" class="pull-left upload_btn"><i class="fa fa-cloud-upload"
-                                                                                             aria-hidden="true"></i>
-                                Add Files</a>
+
+                        <p><input type="file" name="f" id="uploadimage">
                             <button class="pull-right btn btn-success" onclick="sendMes()">
                                 Send</button>
                         </div>

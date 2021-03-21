@@ -23,52 +23,36 @@ public class MessageDaoImpl implements Dao<Message> {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"message\"";
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            List<Message> messages = new ArrayList<>();
-
-            while (resultSet.next()) {
-                Message message = new Message(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("id_user"),
-                        resultSet.getString("textm"),
-                        resultSet.getString("file"),
-                        resultSet.getTimestamp("date"),
-                        resultSet.getString("type"),
-                        resultSet.getString("status")
-                );
-                messages.add(message);
-            }
-
-            return messages;
+            return getMessages(statement, sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    private List<Message> getMessages(Statement statement, String sql) throws SQLException {
+        ResultSet resultSet = statement.executeQuery(sql);
+        List<Message> messages = new ArrayList<>();
+        while (resultSet.next()) {
+            Message message = new Message(
+                    resultSet.getInt("id"),
+                    resultSet.getInt("id_user"),
+                    resultSet.getString("textm"),
+                    resultSet.getString("file"),
+                    resultSet.getTimestamp("date"),
+                    resultSet.getString("type"),
+                    resultSet.getString("status")
+            );
+            messages.add(message);
+        }
+        return messages;
+    }
+
     public List<Message> getAll(int id) {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"message\" WHERE id_user = " + id;
-            ResultSet resultSet = statement.executeQuery(sql);
-
-            List<Message> messages = new ArrayList<>();
-
-            while (resultSet.next()) {
-                Message message = new Message(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("id_user"),
-                        resultSet.getString("textm"),
-                        resultSet.getString("file"),
-                        resultSet.getTimestamp("date"),
-                        resultSet.getString("type"),
-                        resultSet.getString("status")
-                );
-                messages.add(message);
-            }
-
-            return messages;
+            return getMessages(statement, sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }

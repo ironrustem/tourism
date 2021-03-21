@@ -12,7 +12,6 @@ public class CityDaoImpl implements Dao<City> {
 
     private final Connection connection = PostgresConnectionHelper.getConnection();
 
-
     @Override
     public City get(int id) {
         try {
@@ -35,18 +34,14 @@ public class CityDaoImpl implements Dao<City> {
     }
 
     public List<Integer> getIDs(String name) {
-        String name1 = name.substring(0,1).toUpperCase() +  name.substring(1,name.length()).toLowerCase() + "%";
+        String name1 = name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase() + "%";
         try {
-            System.out.println("serchCity = " + name1);
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"city\" WHERE name LIKE '" + name1 + "'";
-            System.out.println("serchCitySQL = " + sql);
             ResultSet resultSet = statement.executeQuery(sql);
 
             List<Integer> cities = new ArrayList<>();
             while (resultSet.next()) {
-                System.out.println("1");
-                System.out.println("cityID = " + resultSet.getInt("id"));
                 cities.add(resultSet.getInt("id"));
             }
             return cities;

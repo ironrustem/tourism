@@ -23,7 +23,6 @@ public class PlaneDaoImpl implements Dao<Plane> {
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getInt("places")
-
                 );
             }
 
@@ -49,6 +48,8 @@ public class PlaneDaoImpl implements Dao<Plane> {
                 );
                 planes.add(plane);
             }
+
+//            Math.Sqrt(x*x+b)-b*b*Math.Pow(Math.Sin(x+a), 3)/x);
 
             return planes;
         } catch (SQLException e) {

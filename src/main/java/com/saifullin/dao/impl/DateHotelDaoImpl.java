@@ -12,7 +12,6 @@ public class DateHotelDaoImpl implements Dao<DateHotel> {
 
     private final Connection connection = PostgresConnectionHelper.getConnection();
 
-
     @Override
     public DateHotel get(int id) {
         return null;
@@ -59,7 +58,6 @@ public class DateHotelDaoImpl implements Dao<DateHotel> {
         }
         return null;
     }
-
 
 
     @Override

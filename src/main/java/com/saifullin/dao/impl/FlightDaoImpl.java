@@ -35,40 +35,32 @@ public class FlightDaoImpl implements Dao<Flight> {
                     i2 = 23;
                     break;
             }
-            String sql = "";
+            String sql;
             if (hourTag == 0) {
                 int i3 = i + 1;
                 sql = "SELECT * FROM \"flight\" WHERE type = 'arrival' AND date1 > 'today'::timestamp + INTERVAL '" + i + " day' AND date1 < 'today'::timestamp + INTERVAL '" + i3 + " day'";
             } else {
                 sql = "SELECT * FROM \"flight\" WHERE type = 'arrival' AND date1 > 'today'::timestamp + INTERVAL '" + i + " day " + i1 + " hour' AND date1 < 'today'::timestamp + INTERVAL '" + i + " day " + i2 + " hour'";
             }
-            System.out.println(sql);
 
-            if(s.equals("noBody")) {
+            if (s.equals("noBody")) {
                 return getFlights(statement, sql);
             } else {
-
-                System.out.println("with Search");
-                CityDaoImpl city= new CityDaoImpl();
-                FlightDaoImpl dao  = new FlightDaoImpl();
+                CityDaoImpl city = new CityDaoImpl();
+                FlightDaoImpl dao = new FlightDaoImpl();
                 List<Integer> listCity = city.getIDs(s);
                 List<Flight> result = new ArrayList<>();
 
-                for (int j = 0; j < listCity.size(); j++) {
-                    System.out.println("city = " + listCity.get(j));
-                    String sql1 = sql + "AND id_city = " + listCity.get(j);
-                    System.out.println(sql1);
+                for (Integer integer : listCity) {
+                    String sql1 = sql + "AND id_city = " + integer;
                     result.addAll(getFlights(statement, sql1));
                 }
 
-                for (int j = 0; j < listCity.size(); j++) {
-                    System.out.println("city = " + listCity.get(j));
-                    String sql1 = sql + "AND id_city = " + listCity.get(j);
-                    System.out.println(sql1);
+                for (Integer integer : listCity) {
+                    String sql1 = sql + "AND id_city = " + integer;
                     result.addAll(getFlights(statement, sql1));
                 }
                 result.addAll(dao.getAllby(s));
-                System.out.println("11111111");
                 return result;
             }
         } catch (SQLException e) {
@@ -101,33 +93,31 @@ public class FlightDaoImpl implements Dao<Flight> {
                     i2 = 23;
                     break;
             }
-            String sql = "";
+            String sql;
             if (hourTag == 0) {
                 int i3 = i + 1;
                 sql = "SELECT * FROM \"flight\" WHERE type = 'departure' AND date1 > 'today'::timestamp + INTERVAL '" + i + " day' AND date1 < 'today'::timestamp + INTERVAL '" + i3 + " day'";
             } else {
                 sql = "SELECT * FROM \"flight\" WHERE type = 'departure' AND date1 > 'today'::timestamp + INTERVAL '" + i + " day " + i1 + " hour' AND date1 < 'today'::timestamp + INTERVAL '" + i + " day " + i2 + " hour'";
             }
+
             System.out.println(sql);
 
-            if(s.equals("noBody")) {
+
+
+            if (s.equals("noBody")) {
                 return getFlights(statement, sql);
             } else {
-
-                System.out.println("with Search");
-                CityDaoImpl city= new CityDaoImpl();
-                FlightDaoImpl dao  = new FlightDaoImpl();
+                CityDaoImpl city = new CityDaoImpl();
+                FlightDaoImpl dao = new FlightDaoImpl();
                 List<Integer> listCity = city.getIDs(s);
                 List<Flight> result = new ArrayList<>();
 
-                for (int j = 0; j < listCity.size(); j++) {
-                    System.out.println("city = " + listCity.get(j));
-                    String sql1 = sql + "AND id_city = " + listCity.get(j);
-                    System.out.println(sql1);
+                for (Integer integer : listCity) {
+                    String sql1 = sql + "AND id_city = " + integer;
                     result.addAll(getFlights(statement, sql1));
                 }
                 result.addAll(dao.getAllby(s));
-                System.out.println("11111111");
                 return result;
             }
         } catch (SQLException e) {
@@ -171,13 +161,6 @@ public class FlightDaoImpl implements Dao<Flight> {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT * FROM \"flight\" WHERE number LIKE '" + id.toUpperCase() + "%'";
-            System.out.println(sql);
-            System.out.println(sql);
-            System.out.println(sql);
-            System.out.println(sql);
-            System.out.println(sql);
-            System.out.println(sql);
-            System.out.println(sql);
             Dao<Plane> daoPlane = new PlaneDaoImpl();
             Dao<City> daoCity = new CityDaoImpl();
 
@@ -198,7 +181,7 @@ public class FlightDaoImpl implements Dao<Flight> {
                 );
                 flights.add(flight);
             }
-            return  flights;
+            return flights;
 
         } catch (SQLException e) {
             e.printStackTrace();
